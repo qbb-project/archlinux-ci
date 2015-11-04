@@ -1,0 +1,50 @@
+# Maintainer: Christopher Hinz <hinz@theo-physik.uni-kiel.de>
+
+pkgname=hpx-dev
+
+pkgver=0.9.11
+
+pkgrel=1
+
+pkgdesc="A general purpose C++ runtime system for parallel and distributed applications of any scale"
+
+arch=('i686' 'x86_64')                                                                                                                                                                       
+                                                                                                                                                                                             
+url="http://stellar.cct.lsu.edu/"                                                                                                                                                            
+                                                                                                                                                                                             
+license=('custom')                                                                                                                                                                           
+                                                                                                                                                                                             
+groups=                                                                                                                                                                                      
+                                                                                                                                                                                             
+depends=('boost>=1.51.0' 'hwloc>=1.8' 'gperftools>=1.7.1' 'libunwind>=0.99' 'jemalloc>=2.1.2' 'openmpi>=1.8.0')                                                                              
+                                                                                                                                                                                             
+makedepends=('cmake>=2.8.4')                                                                                                                                                                 
+                                                                                                                                                                                             
+conflicts=("hpx-git" "hpx")                                                                                                                                                                  
+                                                                                                                                                                                             
+options=('staticlibs')                                                                                                                                                                       
+                                                                                                                                                                                             
+source=("git+https://github.com/STEllAR-GROUP/hpx.git")                                                                                                                                      
+                                                                                                                                                                                             
+md5sums=('SKIP')                                                                                                                                                                             
+                                                                                                                                                                                             
+build() {                                                                                                                                                                                    
+  cd "$srcdir/hpx"                                                                                                                                                                           
+
+  install -d build/
+  cd build
+  
+  cmake -DHPX_WITH_PARCELPORT_MPI=ON              \
+        -DHPX_WITH_EXAMPLES=OFF                  \
+        -DHPX_WITH_TESTS=OFF                     \
+        -DCMAKE_INSTALL_PREFIX=/usr               \
+        ..
+
+  make
+}
+
+package() {
+  cd "$srcdir/hpx/build"
+
+  make DESTDIR="$pkgdir/" install
+}
