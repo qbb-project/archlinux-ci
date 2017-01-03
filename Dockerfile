@@ -1,10 +1,10 @@
 FROM qbbproject/archlinux-base
 
-LABEL revision="4"
+LABEL revision="5"
 
 MAINTAINER Christopher Hinz <hinz@theo-physik.uni-kiel.de>
 
-RUN yaourt --noconfirm -Syu boost yaml-cpp cmake gperftools llvm clang hwloc jemalloc hdf5 gtest git eigen python-sphinx doxygen graphviz ttf-dejavu openssh && sudo paccache -k 0 -r -v
+RUN yaourt --noconfirm -Syu boost yaml-cpp cmake gperftools llvm clang hwloc jemalloc hdf5 gtest git eigen python-sphinx doxygen graphviz ttf-dejavu openssh rsync && sudo paccache -k 0 -r -v
 
 COPY packages /tmp/packages
 

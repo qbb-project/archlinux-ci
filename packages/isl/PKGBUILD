@@ -1,17 +1,17 @@
 pkgname=isl-self
 _pkgname=isl
-pkgver=0.17.1
+pkgver=0.18
 pkgrel=1
 pkgdesc="Library for manipulating sets and relations of integer points bounded by linear constraints"
 arch=('i686' 'x86_64')
 url="http://freecode.com/projects/isl"
 depends=('gmp')
-provides=('isl==0.16.1')
+provides=('isl==0.18.0')
 conflicts=('isl' 'isl-git')
 replaces=('isl')
 license=('MIT')
 source=(http://isl.gforge.inria.fr/$_pkgname-$pkgver.tar.bz2)
-sha512sums=('b84f6cab0d9fc7cb64f3afc35fc5f8c05db3456c569510788d65d402ebe8116eb49c327b8055eaebdfd0cac4764f279c1832d5440db6ffa0e52331ac52096058')
+sha256sums=('6b8b0fd7f81d0a957beb3679c81bbb34ccc7568d5682844d8924424a0dadcb1b')
 
 build() {
   cd "$srcdir/$_pkgname-$pkgver"
@@ -33,3 +33,4 @@ package() {
   
   install -Dm644 LICENSE $pkgdir/usr/share/licenses/isl/LICENSE
 }
+
