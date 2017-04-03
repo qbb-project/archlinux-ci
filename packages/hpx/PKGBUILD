@@ -16,7 +16,7 @@ license=('custom')
 
 groups=()
 
-depends=('boost>=1.51.0' 'hwloc>=1.8' 'gperftools>=1.7.1' 'libunwind>=0.99' 'jemalloc>=2.1.2' 'openmpi>=1.8.0')
+depends=('boost>=1.57.0' 'hwloc>=1.10' 'jemalloc>=2.1.2' 'openmpi>=1.10.0' 'vc')
 
 makedepends=('cmake>=2.8.4')
 
@@ -37,6 +37,8 @@ build() {
 
   cmake -DCMAKE_BUILD_TYPE=Release              \
         -DHPX_WITH_PARCELPORT_MPI=ON              \
+        -DHPX_WITH_MALLOC=JEMALLOC               \
+        -DHPX_WITH_DATAPAR_VC=ON                  \
         -DHPX_WITH_EXAMPLES=OFF                  \
         -DHPX_WITH_TESTS=OFF                     \
         -DCMAKE_INSTALL_PREFIX=/usr    \
