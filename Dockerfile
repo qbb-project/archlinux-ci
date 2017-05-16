@@ -1,6 +1,6 @@
 FROM qbbproject/archlinux-base
 
-LABEL revision="8"
+LABEL revision="9"
 
 MAINTAINER Christopher Hinz <hinz@theo-physik.uni-kiel.de>
 
