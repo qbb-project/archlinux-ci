@@ -1,6 +1,6 @@
 # Maintainer: Christopher Hinz <hinz@theo-physik.uni-kiel.de>
 
-pkgname=hpx-dev
+pkgname=hpx
 
 pkgver=1.0.0
 
@@ -16,21 +16,21 @@ license=('custom')
 
 groups=()
 
-depends=('boost>=1.57.0' 'hwloc>=1.10' 'jemalloc>=2.1.2' 'openmpi>=1.10.0' 'vc')
+depends=('boost>=1.51.0' 'hwloc>=1.8' 'jemalloc>=2.1.2' 'openmpi>=1.8.0' 'vc')
 
-makedepends=('cmake>=2.8.4')
+makedepends=('cmake>=3.1.0')
 
 options=('staticlibs')
 
-source=("git+https://github.com/STEllAR-GROUP/hpx.git")
+source=("http://stellar.cct.lsu.edu/files/${pkgname}_${pkgver}.tar.bz2")
 
-md5sums=("SKIP")
+sha256sums=("1cc81c0d13334a59a94fc7ca919c0b47d0d7557b2634a01a4d280a945b927ed1")
 
 provides=("hpx==1.0.0")
-conflicts=("hpx-git" "hpx")
+conflicts=("hpx-dev" "hpx-git" "hpx")
 
 build() {
-  cd "$srcdir/hpx"
+  cd "$srcdir/${pkgname}_${pkgver}"
 
   install -d build/
   cd build
@@ -48,7 +48,7 @@ build() {
 }
 
 package() {
-  cd "$srcdir/hpx/build"
+  cd "$srcdir/${pkgname}_${pkgver}/build"
 
   make DESTDIR="$pkgdir/" install
 }
