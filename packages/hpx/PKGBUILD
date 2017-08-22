@@ -4,7 +4,7 @@ pkgname=hpx
 
 pkgver=1.0.0
 
-pkgrel=1
+pkgrel=2
 
 pkgdesc="A general purpose C++ runtime system for parallel and distributed applications of any scale"
 
@@ -16,18 +16,24 @@ license=('custom')
 
 groups=()
 
-depends=('boost>=1.51.0' 'hwloc>=1.8' 'jemalloc>=2.1.2' 'openmpi>=1.8.0' 'vc')
+depends=('boost>=1.51.0' 'hwloc>=1.8' 'jemalloc>=2.1.2' 'openmpi>=1.8.0')
 
 makedepends=('cmake>=3.1.0')
 
 options=('staticlibs')
 
-source=("http://stellar.cct.lsu.edu/files/${pkgname}_${pkgver}.tar.bz2")
+source=("http://stellar.cct.lsu.edu/files/${pkgname}_${pkgver}.tar.bz2" "parcel_uninitialized.patch")
 
-sha256sums=("1cc81c0d13334a59a94fc7ca919c0b47d0d7557b2634a01a4d280a945b927ed1")
+sha256sums=("1cc81c0d13334a59a94fc7ca919c0b47d0d7557b2634a01a4d280a945b927ed1" "b7d699e90859458938953633e33e68b8f9c4e062d712380f4311f14f290fa12f")
 
 provides=("hpx==1.0.0")
 conflicts=("hpx-dev" "hpx-git" "hpx")
+
+prepare() {
+  cd "$srcdir/${pkgname}_${pkgver}"  
+
+  patch -p0 -i "${srcdir}/parcel_uninitialized.patch"
+}
 
 build() {
   cd "$srcdir/${pkgname}_${pkgver}"
@@ -38,7 +44,6 @@ build() {
   cmake -DCMAKE_BUILD_TYPE=Release              \
         -DHPX_WITH_PARCELPORT_MPI=ON              \
         -DHPX_WITH_MALLOC=JEMALLOC               \
-        -DHPX_WITH_DATAPAR_VC=ON                  \
         -DHPX_WITH_EXAMPLES=OFF                  \
         -DHPX_WITH_TESTS=OFF                     \
         -DCMAKE_INSTALL_PREFIX=/usr    \
@@ -52,3 +57,4 @@ package() {
 
   make DESTDIR="$pkgdir/" install
 }
+
